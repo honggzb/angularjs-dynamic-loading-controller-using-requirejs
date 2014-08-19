@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AngularJS Dynamic Loading Example</title>
+  <script src="js/lib/require.min.js"></script>
+</head>
+<body>
+<a href="./">FirstPage</a>
+<a href="./foo">SecondPage</a>
+<div ng-view>
+</div>
+<pre>
+Reference:
+  Wahlin, D 2013, 'Dynamically Loading Controllers and Views with AngularJS and RequireJS', ASP.NET Community Blogs, viewed 20 August 2013,
+  <a target="_blank" href="http://weblogs.asp.net/dwahlin/dynamically-loading-controllers-and-views-with-angularjs-and-requirejs">http://weblogs.asp.net/dwahlin/dynamically-loading-controllers-and-views-with-angularjs-and-requirejs</a>
+</pre>
+<script>
+'use strict';
+var baseUrl = 'http://aaronhuzhang.com/requirejsTest/';
+var baseEl = document.createElement('base');
+baseEl.setAttribute('href',baseUrl+'index.html');
+var headEl = document.getElementsByTagName('head')[0];
+headEl.appendChild(baseEl);
+requirejs.config({
+  baseUrl: baseUrl + 'js',
+  urlArgs:'v=1.0',
+  paths:{
+    'angular':'lib/angular/angular.min',
+    'angularRoute':'lib/angular/angular-route.min',
+    'app':'app/',
+    'services':'app/services',
+    'controllers':'app/controllers'
+  }
+});
+
+requirejs(['app/myApp'],function(app){
+  angular.bootstrap(document,['myApp']);
+});
+</script>
+</body>
+</html>
